@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket Information</title>
+    <script src="https://kit.fontawesome.com/2f4812b960.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+        }
+
+        h2 {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        #ticketTable {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #ticketTable th,
+        #ticketTable td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        #ticketTable th {
+            background-color: #f2f2f2;
+            text-align: left;
+        }
+
+        #ticketTable tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .paymentButton {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .paymentButton:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h2>Ticket Information</h2>
+    <h4 style="text-align:center">Click on User name in the table to view ticket booker Info</h4>
+    <table id="ticketTable">
+        <thead>
+            <tr>
+                <th>Ticket Name</th>
+                <th>Ticket Type</th>
+                <th>Uploaded_by</th>
+                <th>No Of Booked Tickets</th>
+                <th>Total Price</th>
+                <th>Payment Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for books in tickets %}
+                {% for book in books %}
+                    <tr>
+                        <td>{{ book.ticket.ticket_name }}</td>
+                        <td>{{ book.ticket.type }}</td>
+                        <td><a href="{% url 'profile_view' id=book.booked_by.id %}">{{ book.booked_by }}</a></td>
+                        <td>{{ book.total_tickets }}</td>
+                        <td>{{ book.total_price }}</td>
+                        {% if book.payment%}
+                            <td>Paid</td>
+                        {% else %}
+                            <td>Pending</td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            {% endfor %}
+        </tbody>
+        
+    </table>
+</body>
+</html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Tickets</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: hsl(0, 0%, 6%);
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+        }
+
+        form {
+            width: 50%;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            color: white;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            margin-top: 5px;
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .sub {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #000;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .close {
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            background: red;
+            border: none;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+        }
+
+        .payment-info {
+            width: 50%;
+            margin: 20px auto;
+            color: white;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <!-- Modal -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <p>Please verify before booking something. Once booked, it cannot be cancelled. You have read the instructions and are clear with your decisions.</p>
+            <button id="modal-ok-btn" class="close">OK</button>
+        </div>
+    </div>
+
+    <h1>Book Tickets</h1>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="ticket_name">Ticket Name:</label>
+            <input type="text" id="ticket_name" name="ticket_name" value="{{ ticket.ticket_name }}" required readonly>
+        </div>
+        <input type="hidden" name="ticket_id" id="ticket_id">
+        <div class="form-group">
+            <label for="quantity">Available:</label>
+            <input type="number" id="available" name="quantity" value="{{ ticket.number_of_tickets }}" required readonly>
+        </div>
+        <div class="form-group">
+            <label for="quantity">Quantity:</label>
+            <input type="number" id="quantity" name="quantity" required max="{{ ticket.number_of_tickets }}">
+        </div>
+        <div class="form-group">
+            <label for="total_price">Total Price:</label>
+            <input type="text" id="total_price" name="total_price" readonly>
+        </div>
+        <button type="submit" class="sub">Book</button>
+    </form>
+
+    <!-- Payment Information Display -->
+    <div class="payment-info">
+        {% if booking.payment %}
+            <h4>Payment Successful!</h4>
+            {% if booking.ticket.ticket_file %}
+                <a href="{{ booking.ticket.ticket_file.url }}" download class="btn-primary">Download Ticket</a>
+            {% else %}
+                <p>Ticket is not available for download.</p>
+            {% endif %}
+        {% else %}
+            <p>Please complete payment to access the ticket.</p>
+        {% endif %}
+    </div>
+
+    <script>
+        function updateTotalPrice() {
+            const quantity = parseInt(document.getElementById('quantity').value);
+            const price = parseFloat("{{ ticket.price }}");
+            const totalPrice = quantity * price;
+            document.getElementById('total_price').value = totalPrice.toFixed(2);
+        }
+
+        document.getElementById('quantity').onchange = updateTotalPrice;
+        updateTotalPrice();
+
+        const modal = document.getElementById("myModal");
+        const okButton = document.getElementById("modal-ok-btn");
+
+        window.onload = function () {
+            modal.style.display = "block";
+        };
+
+        okButton.onclick = function () {
+            modal.style.display = "none";
+        };
+
+        window.onclick = function (event) {
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        };
+    </script>
+</body>
+</html>

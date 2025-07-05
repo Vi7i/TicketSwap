@@ -1,0 +1,396 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+
+
+html{
+    scroll-behavior: smooth;
+}
+
+body{
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: hsl(0, 0%, 6%);
+    
+}
+
+ul,li{
+    padding: 0;
+    list-style-type: none;
+}
+
+header{
+    top: 0;
+    background-color: hsl(0, 0%, 6%);
+    padding: 10px;
+    color: hsl(0, 0%, 89%);
+    border-bottom: solid 4px  hsla(0, 0%, 89%, 0.2);
+    z-index: 1000;
+}
+
+nav{
+    max-width: 1200px;
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    margin: 0 auto;
+    text-align: center;
+    align-items: center;
+}
+
+nav a{
+    text-decoration: none;
+    color: hsl(0, 0%, 89%);
+}
+nav h1{
+    line-height: 1em;
+
+}
+
+nav h1 div:first-child{
+    letter-spacing: 1.5px;
+}
+
+
+img{
+    width:100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.home_section .short{
+    grid-row: span 1;
+}
+
+.home_section .tall{
+    grid-row: span 2;
+}
+
+.home_section .lastbutone{
+    grid-column: span 2;
+}
+
+.upload_section {
+    margin-top: 100px;
+    max-width: 800px;
+    margin: 50px auto;
+    background-color: hsla(240, 6%, 15%, 0.5); 
+    padding: 40px; 
+    border-radius: 10px;
+    color: hsl(0, 0%, 89%);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); 
+}
+.form-group {
+    margin-bottom: 30px; 
+}
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 10px; 
+}
+input[type="text"],
+input[type="number"],
+select {
+    width: 100%; 
+    padding: 15px; 
+    border: 1px solid hsla(0, 0%, 89%, 0.2);
+    border-radius: 8px; 
+    box-sizing: border-box;
+    font-size: 16px;
+    background: hsla(243, 86%, 83%, 0.3);
+    color: hsl(0, 0%, 89%);
+}
+input[type="datetime-local"] {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid hsla(0, 0%, 89%, 0.2);
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-size: 16px;
+    margin-bottom: 20px;
+    background: hsla(243, 86%, 83%, 0.3); 
+    color: hsl(0, 0%, 89%);
+}
+select option{
+    color:black;
+}
+.button {
+    background-color: hsl(0, 0%, 6%);
+    color: hsl(0, 0%, 89%);
+    border: 2px solid hsla(0, 0%, 89%, 0.2);
+    padding: 15px 30px;
+    font-size: 18px; 
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s; 
+}
+.button:hover {
+    background-color: #333;
+    color: #fff;
+    border-color: #333; 
+}
+
+.contact_section {
+    max-width: 800px;
+    margin: 50px auto;
+    background-color:  hsla(240, 6%, 15%, 0.5);
+    color: hsl(0, 0%, 89%); 
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+.form-group {
+    margin-bottom: 30px;
+}
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+input[type="email"],
+input[type="tel"],
+textarea {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid hsla(0, 0%, 89%, 0.2);
+    background: hsla(243, 86%, 83%, 0.3);
+    color: hsl(0, 0%, 89%);
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+textarea {
+    height: 150px;
+}
+
+.book_section {
+    margin-top: 100px;
+    padding: 50px 20px;
+    position: relative;
+    left: -17px;
+    
+}
+.row {
+    margin-bottom: 40px;
+}
+.ticket-section{
+    display: grid;
+    flex-direction: column;
+    width: 100%;
+   
+}
+
+
+.ticket-header {
+    margin-bottom: 20px;
+}
+
+.ticket-title {
+    font-size: 24px;
+    font-weight: bold;
+    
+}
+
+.ticket-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.ticket{
+    flex:0 0 auto;
+    width: 100%;
+    height: 300px;
+    background-color:  hsla(240, 6%, 15%, 0.5); 
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction:column;
+    align-content: center;
+    justify-content: center;
+    color: hsl(0, 0%, 89%);
+}
+.ticket-container{
+    justify-self: center;
+    padding: 10% -21%;
+    align-content: center;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    width: 35%;
+    flex-direction: column;
+    
+}
+.ticket-title-div h2{
+    text-align: center;
+    color:hsl(0, 0%, 89%);
+}
+
+.book-button {
+    background-color: hsl(0, 0%, 6%);
+    color: hsl(0, 0%, 89%);
+    border: 2px solid hsla(0, 0%, 89%, 0.2);
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 60px;
+    margin-bottom: 20px;
+   
+}
+.book-button:hover {
+    background-color: #0056b3;
+}
+
+.complaint-button {
+    background-color: #ff0000;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.complaint-button:hover {
+    background-color: #ff000070;
+}
+
+a{
+    text-decoration: none;
+    color: white;
+}
+.icon-container {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 1000;
+    cursor: pointer;
+    color: hsl(0, 0%, 89%);
+  }
+  
+  .hidden-icons {
+    position: fixed;
+    bottom: 100px;
+    left: 30px;
+    z-index: 999;
+    display: none;
+    
+
+  }
+  
+  i{
+    font-size: 60px;
+  }
+  .hidden-icons i {
+    color: hsl(0, 0%, 89%);
+    margin-right: 10px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    font-size: 40px;
+  }
+
+  .hidden-icons.active {
+    display: flex;
+    flex-direction: column;
+
+  }
+  .hidden-icons.active i {
+    opacity: 1;
+  }
+  
+  .fa-fade {
+    animation: fade 1s infinite alternate;
+  }
+  
+  @keyframes fade {
+    from {
+      opacity: 0.5;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+
+
+
+.footer {
+    background-color:  hsla(240, 6%, 15%, 0.5);
+    color: hsl(0, 0%, 89%);
+    padding: 20px;
+    text-align: center;
+}
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 20px;
+}
+.footer-grid-item {
+    font-size: 16px;
+    color:hsl(0, 0%, 89%);
+}
+.copyright {
+    font-size: 14px;
+    color: hsl(0, 0%, 89%);
+}
+
+
+.has-scrollbar {
+    padding-bottom: 5px;
+}
+
+.has-scrollbar::-webkit-scrollbar {
+    width: 12px;
+    height: 20px; 
+}
+
+.has-scrollbar::-webkit-scrollbar-thumb {
+    background: transparent;
+    border: 3px solid white;
+    -webkit-border-radius: 20px;
+    border-radius: 20px;
+}
+
+.has-scrollbar:hover::-webkit-scrollbar-thumb { background: hsl(0, 0%, 90%); }
+
+.has-scrollbar::-webkit-scrollbar-thumb:hover { background: hsl(0, 0%, 80%); }
+
+
+
+@media (max-width: 768px) {
+    .ticket-row {
+        flex-wrap: nowrap;
+    }
+    .ticket {
+      
+        /* padding: 30px; */
+        border-radius: 15px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin-bottom: 30px;
+        width: 100%;
+        /* margin-right: 30px; */
+        font-size: 18px;
+        /* left: 0; */
+    }
+    .ticket-container{
+        justify-self: center;
+        align-content: center;
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        width: 80%;
+        margin-left: 10%;
+        flex-direction: column;
+        
+    }
+    .footer-grid {
+        justify-items: start;
+        align-items: start;
+    }
+    .footer-grid-item {
+        font-size: 8px;
+        color: hsl(0, 0%, 89%);
+    }
+    }

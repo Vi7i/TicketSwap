@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <style>
+        /* Reset styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .section {
+            flex: 1 1 calc(50% - 20px);
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            min-width: 300px;
+        }
+
+        .section h2 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 10px;
+        }
+
+        .users {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 10px 0;
+            list-style: none;
+        }
+
+        .users li {
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .users li:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .responsive-div {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .responsive-div span {
+            font-size: 14px;
+            word-wrap: break-word;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+
+        button, .approve-button {
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 14px;
+        }
+
+        button {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        button:hover {
+            background-color: #c82333;
+        }
+
+        .approve-button {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .approve-button:hover {
+            background-color: #218838;
+        }
+
+        @media screen and (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .section {
+                flex-basis: 100%;
+            }
+
+            .users {
+                grid-template-columns: 1fr;
+            }
+
+            .responsive-div {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+
+
+        .tickets li span, .complaint p, .queries li {
+            display: block; /* Display each item on a new line */
+            margin-bottom: 10px; /* Add spacing between items */
+        }
+
+        .tickets li, .complaint, .queries {
+            margin-bottom: 20px; /* Add spacing between items */
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #f5f5f5;
+        }
+
+        button {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .approve-button {
+        background-color: #28a745; /* Green color */
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+        .approve-button:hover {
+        background-color: #218838; /* Darker green on hover */
+      }
+
+
+        button:hover {
+            background-color: #c82333;
+        }
+
+        .sidebar {
+            background-color: #f4f4f4;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .sidebar h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #333;
+            border-bottom: 2px solid #ccc;
+            padding-bottom: 10px;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        li {
+            list-style-type: none;
+            margin-bottom: 10px;
+        }
+
+        .complaint button, .queries button {
+            display: block; /* Display buttons on a new line */
+            margin-top: 10px; /* Add spacing between buttons */
+        }
+
+        .complaint button:hover, .queries button:hover {
+            background-color: #c82333;
+        }
+        .users li, .tickets li, .complaint, .queries {
+            flex-basis: 100%; 
+        }
+
+        .responsive-div{
+            display:flex;
+            justify-content:space-around;
+        }
+        /* Media queries */
+        @media screen and (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            .section {
+                flex-basis: 100%;
+                margin-bottom: 20px;
+            }
+            .users li, .tickets li, .complaint, .queries {
+                flex-basis: 100%; /* Set each item to take 100% width */
+            }
+            .responsive-div{
+                display:flex;
+                flex-direction:column;
+                justify-content:unset
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="section">
+            <h2>Users</h2>
+            <ul class="users">
+                {% for user in users %}
+                    <li>
+                        <div class="responsive-div">
+                            <span><strong>Username:</strong> {{ user.username }}</span>
+                            <span><strong>Email:</strong> {{ user.email }}</span>
+                            <span><strong>Phone Number:</strong> {{ user.phonenumber }}</span>
+                            <form method="POST" action="{% url 'delete_user' user.id %}">
+                                {% csrf_token %}
+                                <button type="submit">Delete</button>
+                            </form>
+                            {% if not user.is_approved %}
+                            <form method="POST" action="{% url 'approve_user' user.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="approve-button">Approve</button>
+                            </form>
+                        {% endif %}
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="section">
+            <h2>Sidebar</h2>
+            <div class="sidebar">
+                <h3>View Queries</h3>
+                <ul class="queries">
+                    {% for query in view_queries %}
+                        <li>{{ query.queries }} by {{  query.query_by.email }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="sidebar">
+                <h3>Complaints</h3>
+                <div class="complaint">
+                    {% for complaint in complaints %}
+                        <p><strong>Ticket Name:</strong> {{ complaint.ticket_name }}</p>
+                        <p><strong>Ticket By:</strong> {{ complaint.uploaded_by }}</p>
+                        <p><strong>Complaint By:</strong> {{ complaint.complaint_by }}</p>
+                        <p><strong>Ticket Price:</strong> {{ complaint.ticket_price }}</p>
+                        <p><strong>Actual Price:</strong> {{ complaint.actual_price }}</p>
+                        <form method="POST" action="{% url 'delete_complaint' complaint.id %}">
+                            {% csrf_token %}
+                            <button type="submit">Delete</button>
+                        </form>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="section" style="flex-basis: 100%;">
+            <h2>Tickets</h2>
+            <ul class="tickets">
+                {% for ticket in tickets %}
+                    <li>
+                        <div class="responsive-div">
+                            <span><strong>Ticket Name:</strong> {{ ticket.ticket_name }}</span>
+                            <span><strong>Price:</strong> {{ ticket.price }}</span>
+                            <span><strong>Uploaded by:</strong> {{ ticket.uploaded_by.email }}</span>
+                            <span><strong>Date of Expiry:</strong> {{ ticket.date_of_expiry }}</span>
+                            <span><strong>Number of Tickets:</strong> {{ ticket.number_of_tickets }}</span>
+                            <form method="POST" action="{% url 'delete_ticket' ticket.id %}">
+                                {% csrf_token %}
+                                <button type="submit">Delete</button>
+                            </form>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="section" style="flex-basis: 100%;">
+            <h2>Booked</h2>
+            <ul class="tickets">
+                {% for book in books %}
+                    <li>
+                        <div class="responsive-div">
+                            <span><strong>Ticket Name:</strong> {{ book.ticket.ticket_name }}</span>
+                            <span><strong>Booked by:</strong> {{ book.booked_by.email }}</span>
+                            <span><strong>Uploaded by:</strong> {{ book.ticket.uploaded_by.email }}</span>
+                            <span><strong>Total Price:</strong> {{ book.total_price }}</span>
+                            <span><strong>Number of Tickets:</strong> {{ book.total_tickets }}</span>
+                            <span><strong>Status:</strong> {% if book.payment %}Paid{% else %}Pending{% endif %}</span>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

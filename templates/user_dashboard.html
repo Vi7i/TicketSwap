@@ -1,0 +1,595 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TICKET|SWAP</title>
+    <link rel="stylesheet" href="{% static './css/user_dashboard.css' %}">
+    <script src="https://kit.fontawesome.com/50b662cd7e.js" crossorigin="anonymous"></script>
+    <style>
+        @import url("https://fonts.googleapis.com/css?family=Outfit:700|Poppins:400");
+        .box {
+            max-width: 100%;
+            width: 100%;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            top: 0;
+            position: fixed;
+        }
+        .alert {
+            margin-bottom: 15px;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .alert-success {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+        }
+        .alert-danger {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+        }
+        .close {
+            position: absolute;
+            top: 43%;
+            right: 10%;
+            transform: translateY(-50%);
+            padding: 0.75rem 1.25rem;
+            background-color: #d71d1d;
+            border: 0;
+            border-radius: 12px;
+            cursor: pointer;
+            color: white;
+        }
+
+      
+
+        :root {
+          --text: hsl(0, 0%, 89%);
+          --text_muted: hsla(0, 0%, 89%, 0.5);
+          --border: hsla(0, 0%, 89%, 0.2);
+          --background: hsl(0, 0%, 6%);
+          --primary: hsl(243, 86%, 83%);
+          --primary_dim: hsla(243, 86%, 83%, 1);
+          --secondary: hsla(240, 6%, 15%, 0.5);
+          --accent: hsl(198, 100%, 84%);
+          --accent_dim: hsla(198, 100%, 84%, 1);
+        }
+        
+        * {
+          box-sizing: border-box;
+          padding: 0;
+          margin: 0;
+        }
+        
+        .home_div{
+          display: flex;
+          flex-direction: column;
+          flex-wrap: nowrap;
+          overflow-x: hidden;
+          font-family: "Poppins";
+          font-weight: 400;
+          color: var(--text);
+          padding: 0 15vw 2rem 15vw;
+          gap: 2rem;
+          background: var(--background);
+        }
+        
+        
+        img {
+          object-fit: contain;
+          height: auto;
+          width: auto;
+          position: relative;
+          border-radius: 0.5rem;
+        }
+        
+        
+        .banner img {
+          width: 100%;
+          object-fit: cover;
+          height: 25rem;
+          -webkit-mask-image: linear-gradient(
+            rgba(0, 0, 0, 1) 20%,
+            rgba(0, 0, 0, 0) 80%
+          );
+          margin-top: 40px;
+        }
+        
+        .banner {
+          width: 100%;
+          height: 25rem;
+          position: relative;
+        }
+        
+.carousel {
+    position: relative;
+    width: 100%;
+    height: 400px; 
+    overflow: hidden;
+}
+
+.carousel-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+.carousel-image.active {
+    opacity: 1;
+}
+
+        .overlay {
+          position: absolute;
+          padding: 1rem;
+        }
+        
+        .left {
+          bottom: 8px;
+          left: 16px;
+        }
+        
+        .right {
+          bottom: 8px;
+          right: 16px;
+        }
+        
+        .bottom {
+          right: 50%;
+          bottom: 8px;
+        }
+        
+        input {
+          border-radius: 1.5rem;
+          border: none;
+          padding: 1rem 2rem 1rem 2rem;
+          color: var(--text);
+          outline: none;
+          font-size: 0.9rem;
+        }
+          
+        .container_home {
+          flex-grow: 1;
+          padding: 2rem;
+          border-radius: 0.5rem;
+        }
+        
+        .space-between {
+          justify-content: space-between;
+        }
+        
+        .column {
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+        }
+        
+        .row {
+          display: flex;
+          flex-direction: row;
+          gap: 1rem;
+        }
+        
+        .center {
+          align-items: center;
+          align-self: center;
+        }
+        
+        .primary {
+          background: linear-gradient(114deg, var(--primary_dim), var(--accent_dim));
+          color: var(--background);
+        }
+        
+        .secondary {
+          border: solid 1px var(--secondary);
+          background: var(--secondary);
+        }
+        
+        .tertiary {
+          border: solid 1px var(--border);
+        }
+        
+        .muted {
+          color: var(--text_muted);
+        }
+        
+        .bold {
+          font-weight: 700;
+        }
+        
+        .underline {
+          text-decoration: underline;
+        }
+        
+        .logo {
+          fill: var(--text);
+          stroke-width: 0;
+        }
+        
+        .plugins {
+          display: flex;
+          flex: 1 0 50%;
+          width: 100%;
+          gap: 2rem;
+        }
+        
+        .mobile {
+          display: none;
+        }
+        
+        @media only screen and (max-width: 750px) {
+            .plugins {
+                /* display: flex; */
+                display: grid;
+                grid-template-columns: repeat(1, 1fr);
+                /* flex: 1 0 50%; */
+                width: 100%;
+                gap: 2rem;
+            }
+                   
+        }
+        
+        
+    </style>
+</head>
+<body>
+    <header style="" id="header">
+        <nav>
+            <a href="">HOME</a>
+            <a href="#upload">UPLOAD</a>
+            <h1>
+                <div>TICKET</div>
+                <div>SWAP</div>
+            </h1>
+            <a href="#book_section">BOOK</a>
+            <a href="#contact">CONTACT</a>
+
+        </nav>
+    </header>
+    <section class="home_section">
+      <div class="home_div">
+          <div class="banner">
+              <div class="carousel">
+                  <img src="static/img/ticket.jpg" class="carousel-image active">
+                  <img src="static/img/TFI.jpg" class="carousel-image">
+                  <img src="static/img/ttd.jpg" class="carousel-image">
+                  <img src="static/img/railway.jpg" class="carousel-image">
+
+              </div>
+          </div>
+
+              <div class="plugins">
+                <div class="container_home column secondary">
+                  <div>
+                    <tag class="primary">⚽🏏</tag>
+                    <tag class="tertiary">Sports</tag>
+                  </div>
+                  <div>
+                    <h5>Hii..</h5>
+                    <p class="muted">Get Sports Ticket And Enjoy...</p>
+                  </div>
+                </div>
+                <div class="container_home column secondary">
+                  <div>
+                    <tag class="primary">🎷🎹</tag>
+                    <tag class="tertiary">Concert</tag>
+                  </div>
+                  <div>
+                    <h5>Hello...</h5>
+                    <p class="muted">Just a step away to get a concert ticket</p>
+                  </div>
+                </div>
+              </div>
+          
+              <div class="plugins">
+                <div class="container_home column secondary">
+                  <div>
+                    <tag class="primary">🎢</tag>
+                    <tag class="tertiary">Amusement</tag>
+                  </div>
+                  <div>
+                    <h5>Bro...</h5>
+                    <p class="muted">Maybe you need an amusement</p>
+                  </div>
+                </div>
+                <div class="container_home column secondary">
+                  <div>
+                    <tag class="primary">🎥🎬</tag>
+                    <tag class="tertiary">Movie</tag>
+                  </div>
+                  <div>
+                    <h5>Heyy..</h5>
+                    <p class="muted">Bored ?...pick  a movie</p>
+                  </div>
+                </div>
+                      <div class="container_home column secondary">
+                      <div>
+                        <tag class="primary">🛕🚩</tag>
+                        <tag class="tertiary">Temple</tag>
+                      </div>
+                      <div>
+                        <h5>Govinda</h5>
+                        <p class="muted">Om Namo Vekatesaya</p>
+                      </div>
+                      </div>
+                      </div>
+                        <div class="container_home column secondary">
+                          <div>
+                            <tag class="primary">🚆🛤</tag>
+                            <tag class="tertiary">Railways</tag>
+                          </div>
+                          <div>
+                            <h5>Long Journey</h5>
+                            <p class="muted">Time to explore</p>
+                          </div>
+                          </div>
+                        </div>
+                      </div>
+                     </section>
+    <section class="upload_section" id="upload">
+        <h2>Upload Form</h2>
+  <form action="#" method="post" enctype="multipart/form-data">
+
+
+            {% csrf_token %}
+            <input type="hidden" name="upload_form" id="upload_form">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="ticket_name" required>
+            </div>
+            <div class="form-group">
+                <label for="quantity">Number of Tickets:</label>
+                <input type="number" id="quantity" name="ticket_quantity" required>
+            </div>
+            <div class="form-group">
+                <label for="price">Price per Ticket:</label>
+                <input type="text" id="price" name="ticket_price" required pattern="[0-9]*">
+            </div>
+            <div class="form-group">
+                <label for="doe">Date of Expire:</label>
+                <input type="datetime-local" id="doe" name="doe" required min="{{ current_datetime }}">
+            </div>
+            <div class="form-group">
+                <label for="type">Select Type:</label>
+                <select id="type" name="ticket_type">
+                    <option value="Concert">Concert</option>
+                    <option value="Sports">Sports</option>
+                    <option value="Amusement">Amusement</option>
+                    <option value="Movies">Movies</option>
+                    <option value="Tirumala">Temple</option>
+                    <option value="Railways">Railways</option>
+                </select>
+                <div class="form-group">
+                <label for="ticket-image">Upload Ticket:</label>
+                <input type="file" id="ticket-image" name="ticket-image" accept="image/*" required>
+                </div>
+            </div>
+            <button type="submit" class="button">Upload</button>
+        </form>
+    </section>
+     
+    <section class="book_section" id="book_section">
+      
+    </section>
+    <section class="contact_section" id="contact">
+        <h2>Contact Us</h2>
+        <form action="#" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required value={{request.user.email}} readonly>
+                <input type="hidden" name="contact_form">
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone Number:</label>
+                <input type="tel" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="Format: 123-456-7890" required value={{request.user.phonenumber}} readonly>
+            </div>
+            <div class="form-group">
+                <label for="queries">Queries:</label>
+                <textarea id="queries" name="queries" required></textarea>
+            </div>
+            <button type="submit" class="button">Submit</button>
+        </form>
+    </section>
+    <div class="icon-container" id="iconContainer">
+        <i class="fa-solid fa-gear fa-spin" id="gearIcon"></i>
+      </div>
+      <div class="hidden-icons" id="hiddenIcons">
+        <i class="fa-solid fa-upload fa-fade" style="margin-bottom:20px" id="uploadIcon"></i>
+        <i class="fa-solid fa-user fa-fade" id="profileIcon" style="margin-bottom:20px"></i>
+        <i class="fa-solid fa-ticket fa-fade" id="ticketIcon"></i>
+      </div>
+      
+      
+</main>
+
+    <footer class="footer">
+        <div class="footer-grid">
+            
+            <div class="footer-grid-item">Vijay Kumar S</div>
+           
+           
+            <div class="footer-grid-item">SRN PES1PG23CA318</div>
+            
+          
+            <div class="footer-grid-item"> vijaykumar2570viji@gmail.com</div>
+            
+        </div>
+    
+    </footer>
+    <div class="box">
+        {% if messages %}
+        <div class="container mt-4 cusmes">
+            {% for message in messages %}
+            <div class="alert {% if message.tags == 'success' %}alert-success{% else %}alert-danger{% endif %} alert-dismissible fade show" role="alert" style="position: relative;">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"  onclick="this.parentElement.style.display='none'">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    <script>
+        function fetchAndDisplayTickets() {
+            fetch('http://127.0.0.1:8000/home/alltickets')
+                .then(response => response.json())
+                .then(data => {
+                    const bookSection = document.querySelector('.book_section');
+                    bookSection.innerHTML = '';
+        
+                    const ticketSections = {};
+                    const now = new Date();
+        
+                    data.forEach(ticket => {
+                        const expiryDate = new Date(ticket.expiry_date);
+                        if (expiryDate < now) {
+                            // Skip expired tickets
+                            return;
+                        }
+                        const ticketType = ticket.type;
+        
+                        if (!ticketSections[ticketType]) {
+                            ticketSections[ticketType] = document.createElement('section');
+                            ticketSections[ticketType].classList.add('ticket-section');
+                            bookSection.appendChild(ticketSections[ticketType]);
+        
+                            const titleDiv = document.createElement('div');
+                            titleDiv.classList.add('ticket-title-div');
+                            const titleH2 = document.createElement('h2');
+                            titleH2.textContent = ticketType;
+                            titleDiv.appendChild(titleH2);
+                            ticketSections[ticketType].appendChild(titleDiv);
+        
+                            const ticketContainer = document.createElement('div');
+                            ticketContainer.classList.add('ticket-container');
+                            ticketSections[ticketType].appendChild(ticketContainer);
+                        }
+        
+                        const ticketContainer = ticketSections[ticketType].querySelector('.ticket-container');
+                        const ticketElement = createTicketElement(ticket);
+                        ticketContainer.appendChild(ticketElement);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching tickets:', error);
+                });
+        }
+        
+        function createTicketElement(ticket) {
+            const ticketElement = document.createElement('div');
+            ticketElement.classList.add('ticket');
+        
+            const detailsElement = document.createElement('div');
+            detailsElement.classList.add('ticket-details');
+            detailsElement.innerHTML = `
+                <span><strong>Name:</strong> ${ticket.name}</span><br>
+                <span><strong>Price per Ticket:</strong> ${ticket.price}</span><br>
+                <span><strong>Remaining Ticket:</strong> ${ticket.quantity}</span><br>
+                <span><strong>Expiry Date:</strong> ${ticket.expiry_date}</span>
+            `;
+        
+            const bookButton = document.createElement('button');
+            bookButton.classList.add('book-button');
+            const bookLink = document.createElement('a');
+            bookLink.classList.add('book-button-link');
+            bookLink.href = `/book/${ticket.id}`;
+            bookLink.textContent = 'Book';
+            bookButton.appendChild(bookLink);
+        
+            const complaintButton = document.createElement('button');
+            complaintButton.classList.add('complaint-button');
+            const complaintLink = document.createElement('a');
+            complaintLink.classList.add('complaint-button-link');
+            complaintLink.href = `/complaint/${ticket.id}`;
+            complaintLink.textContent = 'Complaint';
+            complaintButton.appendChild(complaintLink);
+        
+            ticketElement.appendChild(detailsElement);
+            ticketElement.appendChild(bookButton);
+            ticketElement.appendChild(complaintButton);
+        
+            return ticketElement;
+        }
+        
+        document.addEventListener('DOMContentLoaded', fetchAndDisplayTickets);
+        setInterval(fetchAndDisplayTickets, 10000);
+        
+        
+    </script>
+    <script>
+        const gearIcon = document.getElementById('gearIcon');
+        const hiddenIcons = document.getElementById('hiddenIcons');
+
+        gearIcon.addEventListener('click', () => {
+        hiddenIcons.classList.toggle('active');
+        });
+        
+
+        const profileIcon = document.getElementById('profileIcon');
+        const ticketIcon = document.getElementById('ticketIcon');
+        const uploadIcon=document.getElementById('uploadIcon')
+        function goToProfile() {
+        window.location.href = "{% url 'profile' %}";
+        }
+        profileIcon.addEventListener('click', goToProfile);
+        ticketIcon.addEventListener('click', () => {
+            window.location.href = "{% url 'mybooks' %}";
+        });
+
+        uploadIcon.addEventListener('click',()=>{
+            window.location.href="{% url 'myuploads' %}"
+        })
+
+    </script>
+    <script>
+const divToSticky = document.getElementById('header');
+
+
+function makeSticky() {
+    divToSticky.style.position = 'sticky';
+}
+
+
+function disableSticky() {
+    setTimeout(() => {
+        divToSticky.style.position = 'static';
+    }, 5000);
+}
+
+
+window.addEventListener('scroll', () => {
+
+    if (window.scrollY > 0) {
+     
+        makeSticky();
+        disableSticky();
+    }
+});
+
+    </script>
+    <script>
+      let currentIndex = 0;
+      const images = document.querySelectorAll('.carousel-image');
+      
+      function showNextImage() {
+          images[currentIndex].classList.remove('active');
+          currentIndex = (currentIndex + 1) % images.length;
+          images[currentIndex].classList.add('active');
+      }
+      
+      setInterval(showNextImage, 2000); // Change image every 2 seconds
+      </script>
+      
+</body>
+</html>

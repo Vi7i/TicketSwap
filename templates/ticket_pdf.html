@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ticket</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 30px;
+            color: #222;
+            background-color: #f9f9f9;
+        }
+        .ticket-container {
+            max-width: 650px;
+            margin: auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+            border: 1px solid #ddd;
+        }
+        .header {
+            background-color: #d32f2f;
+            color: white;
+            padding: 20px 30px;
+            text-align: center;
+            font-size: 1.8em;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+        .content {
+            padding: 30px;
+        }
+        .details {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 25px;
+        }
+        .details div {
+            flex: 1 1 45%;
+            margin-bottom: 15px;
+        }
+        .details div p {
+            margin: 4px 0;
+            font-size: 1.1em;
+        }
+        .details div p strong {
+            color: #d32f2f;
+        }
+        .ticket-image {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .ticket-image img {
+            max-width: 100%;
+            max-height: 400px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(211,47,47,0.3);
+        }
+        .pdf-placeholder {
+            font-size: 1.2em;
+            color: #555;
+            margin-top: 20px;
+            border: 2px dashed #d32f2f;
+            padding: 40px 20px;
+            border-radius: 8px;
+        }
+        .pdf-placeholder a {
+            color: #d32f2f;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .footer {
+            text-align: center;
+            padding: 15px 10px;
+            font-size: 0.9em;
+            color: #777;
+            border-top: 1px solid #eee;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="ticket-container">
+        <div class="header">
+            TICKET
+        </div>
+        <div class="content">
+            <div class="details">
+                <div>
+                    <p><strong>Name:</strong> {{ booking.booked_by.username }}</p>
+                    <p><strong>Payment ID:</strong> {{ booking.id }}</p>
+                    <!-- <p><strong>Booking Date:</strong> {{ booking.created_at|date:"d M Y, H:i" }}</p> -->
+                </div>
+                <div>
+                    <p><strong>Ticket Name:</strong> {{ booking.ticket.ticket_name }}</p>
+                    <p><strong>Ticket Type:</strong> {{ booking.ticket.type }}</p>
+                    <p><strong>Number of Tickets:</strong> {{ booking.total_tickets }}</p>
+                    <p><strong>Total Price:</strong> ₹{{ booking.total_price }}</p>
+                </div>
+            </div>
+            <div class="ticket-image">
+                {% if booking.ticket.image %}
+                    {% with booking.ticket.image.url|lower as img_url %}
+                        {% if img_url|slice:"-4:" == ".pdf" %}
+                            <div class="pdf-placeholder">
+                                <p>PDF Ticket uploaded.</p>
+                                <p><a href="{{ booking.ticket.image.url }}">Click here to download your PDF ticket</a></p>
+                            </div>
+                        {% else %}
+                            <img src="{{ booking.ticket.image.url }}" alt="Ticket Image" />
+                        {% endif %}
+                    {% endwith %}
+                {% else %}
+                    <p>No ticket image available.</p>
+                {% endif %}
+            </div>
+        </div>
+        <div class="footer">
+            Please present this ticket at the event entrance. Thank you for booking with us!
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,226 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="{% static 'css/register.css' %}">
+    <script src="https://kit.fontawesome.com/2f4812b960.js" crossorigin="anonymous"></script>
+
+    <title>Register</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+        }
+        .head{
+            text-align:center
+        }
+        .cusmes {
+            position: fixed;
+            top: -24px;
+            width: 100%;
+            margin-left: -13px;
+            z-index: 999;
+        }
+        .close {
+            position: absolute;
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%);
+            padding: 0.75rem 1.25rem;
+            background-color: transparent;
+            border: 0;
+            cursor: pointer;
+        }
+        .box {
+            max-width: 400px;
+            margin: 100px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        .input-box {
+            margin-bottom: 20px;
+            position: relative;
+        }
+        .inputf {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        .inputf i {
+            position: absolute;
+            top: 50%;
+            left: 15px;
+            transform: translateY(-50%);
+            color: #999;
+        }
+        .inputf input {
+            width: calc(100% - 40px);
+            padding: 10px;
+            padding-left: 40px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            height: 40px;
+        }
+        .sub {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #000;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .sub:hover {
+            background-color: #333;
+        }
+        .spa1 {
+            color: #333;
+            font-size: 14px;
+            margin-top: 10px;
+            text-align: center;
+            display: block;
+        }
+        .txt1 {
+            color: #000;
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            display: block;
+            margin-bottom: 20px;
+        }
+       
+        .terms-container {
+            display: flex;
+            align-items: center;
+            justify-content:center;
+        }
+        
+        .terms-container input[type="checkbox"] {
+            margin-right: 5px;
+        }
+        input[type="checkbox"][readonly] {
+            pointer-events: none;
+          }
+    </style>
+</head>
+<body onload="ani()">
+    <div class="box" id="box">
+        {% if messages %}
+            <div class="container mt-4 cusmes">
+                {% for message in messages %}
+                    <div class="alert {% if message.tags == 'success' %}alert-success{% else %}alert-danger{% endif %} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick="this.parentElement.style.display='none'">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        
+        <form action="" method="POST">
+            {% csrf_token %}
+            <header class="head">SIGN UP</header>
+            <br>
+            <div class="input-box">
+                <div class="inputf">
+                    <i class="fa fa-user"></i>
+                    <input type="text" value="" placeholder="Username" name="name" required>
+                </div>
+                <div class="inputf">
+                    <i class="fa-solid fa-envelope"></i>
+                    <input type="email" placeholder="Email" name="email" required value={{ email }} readonly>
+                </div>
+                <div class="inputf">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <input type="text" placeholder="Location" name="location" required>
+                </div>
+                <div class="inputf pass">
+                    <div>
+                        <input type="password" id="pass" value="" placeholder="Password" required title="Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character:" name="pass1" ><i class="fa-solid fa-eye-slash" onclick="show()"></i>
+                    </div>
+                </div>
+                <div class="inputf pass">
+                    <div>
+                        <input type="password" id="pass1" value="" placeholder="Confirm password" required title="Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character:" name="pass2" onclick="validatePassword()"><i class="fa-solid fa-eye-slash" onclick="show1()"></i>
+                    </div>
+                </div>
+                <div class="inputf">
+                    <i class="fa-solid fa-phone"></i>
+                    <input type="text" placeholder="Phone Number" name="phone" required>
+                </div>
+            </div>
+
+            <input class="sub" type="submit" value= "Submit">
+            <br>
+            <br>
+            <br>
+            <span class="spa1">Already have an account? <a href="{% url 'login' %}" style="text-decoration: none;color: black;">Login here</a> </span>
+        </form>
+        <div class="terms-container">
+            <input type="checkbox" class="b" id="termsCheckbox" checked readonly>
+            <label class="check" for="termsCheckbox"><a href="/static/terms.txt">Accept Terms of Condition</a></label>
+        </div>
+        
+    
+    <script>
+        function ani() {
+            var a = document.getElementById('box');
+            a.classList.add("ani");
+            a.classList.add("box1");
+        }
+
+        function show() {
+            var a = document.getElementById("pass");
+            if (a.type == "password") {
+                a.type = "text";
+            } else {
+                a.type = "password";
+            }
+        }
+
+        function show1() {
+            var a = document.getElementById("pass1");
+            if (a.type == "password") {
+                a.type = "text";
+            } else {
+                a.type = "password";
+            }
+        }
+
+        function validatePassword() {
+            var p = document.getElementById('pass').value,
+                errors = [];
+            if (p.length < 8) {
+                errors.push("Your password must be at least 8 characters");
+            }
+            if (p.search(/[a-z]/i) < 0) {
+                errors.push("Your password must contain lowercase letters.");
+            }
+            if (p.search(/[A-Z]/) < 0) {
+                errors.push("Your password must contain uppercase letters.");
+            }
+            if (p.search(/[0-9]/) < 0) {
+                errors.push("Your password must contain at least one digit.");
+            }
+            if (p.search(/[!@#$%^&*]/) < 0) {
+                errors.push("Your password must contain special characters.");
+            }
+            if (errors.length > 0) {
+                alert(errors.join("\n"));
+                return false;
+            }
+            return true;
+        }
+    </script>
+
+</body>
+</html>

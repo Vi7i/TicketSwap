@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Tickets</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        
+        h1 {
+            text-align: center;
+        }
+        
+        form {
+            width: 50%;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            font-weight: bold;
+        }
+        
+        input[type="text"],
+        input[type="number"],
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            margin-top: 5px;
+        }
+        
+        input[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+        
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        
+        .sub {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #000;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+    </style>
+</head>
+<body>
+    <h1>Complaint</h1>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="ticket_name">Ticket Name:</label>
+            <input type="text" id="ticket_name" name="ticket_name" value="{{ ticket.ticket_name }}" required readonly>
+        </div>
+        <div class="form-group">
+            <label for="uploaded_by">Uploaded By:</label>
+            <input type="text" id="uploaded_by" name="uploaded_by" value="{{ ticket.uploaded_by }}" required readonly>
+        </div>
+        <div class="form-group">
+            <label for="complaint_by">Complaint By:</label>
+            <input type="text" id="complaint_by" name="complaint_by" value="{{ request.user }}" required readonly>
+        </div>
+        <div class="form-group">
+            <label for="ticket_price">Ticket Price:</label>
+            <input type="text" id="ticket_price" name="ticket_price" value="{{ ticket.price }}" required readonly>
+        </div>
+        <div class="form-group">
+            <label for="total_price">Actual Price per Ticket</label>
+            <input type="text" id="total_price" name="actual_price">
+        </div>
+        <button type="submit" class="sub">Complaint</button>
+    </form>
+    
+</body>
+</html>

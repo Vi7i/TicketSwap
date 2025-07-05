@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thank You</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f4f8;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            color: #333;
+        }
+        .container {
+            background: white;
+            padding: 40px 60px;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+        h1 {
+            margin-bottom: 20px;
+            color: #4CAF50;
+        }
+        p {
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+        button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 12px 25px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        a {
+            color: white;
+            text-decoration: none;
+            display: inline-block;
+        }
+    </style>
+    <script>
+        window.onload = function() {
+            // Trigger download automatically
+            window.location.href = "/download_ticket/{{ bookedid }}";
+            // Redirect to home after 15 seconds
+            setTimeout(function() {
+                window.location.href = "/home";
+            }, 15000);
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Thank you for your payment!</h1>
+        <p>Your ticket download will start shortly.</p>
+        <button onclick="window.location.href='/download_ticket/{{ bookedid }}'">Download Ticket</button>
+        <button onclick="window.location.href='/home'">Return to Home</button>
+    </div>
+</body>
+</html>

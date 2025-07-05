@@ -1,0 +1,215 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>User Profile</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f7f7f7; /* Set background color */
+        margin: 0;
+        padding: 0;
+        background-color: hsl(0, 0%, 6%);
+    }
+    .profile-container {
+        text-align: center;
+        margin-top: 50px;
+       
+    }
+    .profile-image {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        border: 2px solid #ccc;
+        overflow: hidden;
+        margin-bottom: 20px;
+    }
+    .profile-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    .edit-button {
+        background-color: #007bff;
+        color: #fff;
+        padding: 8px 20px;
+        border: none;
+        cursor: pointer;
+        margin-bottom:30px;
+    }
+    .bio-input {
+        width: 80%;
+        padding: 8px;
+        margin-bottom: 20px;
+    }
+    .input-field {
+        margin-bottom: 20px;
+    }
+
+    .box {
+        max-width: 400px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        position: relative;
+        background-color: hsla(240, 6%, 15%, 0.5); 
+        color:white;
+    }
+    .inputf {
+        position: relative;
+        margin-bottom: 20px;
+    }
+    .inputf i {
+        position: absolute;
+        top: 10px;
+        left: 15px;
+        color: #999;
+    }
+    .inputf input {
+        width: calc(100% - 40px); /* Adjusted width */
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    .sub {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        background-color: #000;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    .sub:hover {
+        background-color: #333;
+    }
+    .spa, .spa1 {
+        color: #333;
+        font-size: 14px;
+    }
+    .txt1 {
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    display: block;
+    margin-top: 20px;
+}
+
+    .alert-success {
+        background-color: #d4edda;
+        border-color: #c3e6cb;
+        color: #155724;
+    }
+    .alert-danger {
+        background-color: #f8d7da;
+        border-color: #f5c6cb;
+        color: #721c24;
+    }
+
+    .alert {
+        position: relative;
+        padding: 10px; 
+    }
+    
+    .close {
+        position: absolute;
+        top: 50%;
+        right: 0;
+        transform: translateY(-50%);
+        padding: 0.75rem 1.25rem;
+        background-color: transparent;
+        border: 0;
+        cursor: pointer;
+    }
+
+    #email,
+    #phone {
+        width: calc(100% - 20px);
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-bottom: 10px;
+    }
+    .logout{
+        border:none;
+        background:red;
+        border-radius:12px;
+        color:white;
+        padding:10px;
+        margin-left:60%
+    }
+</style>
+</head>
+<body>
+
+<div class="box">
+  <div class="profile-container">
+    <form action="{% url "logout" %}">
+        <button type="submit" class="logout">Logout</button>
+    </form>
+    <form id="profile-form" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+      <div class="profile-image" id="profile-image">
+        {% if request.user.profile %}
+            <img src="{{ request.user.profile.url }}" alt="Profile Picture">
+       
+        {% else %}
+            <img src="{% static "img/default.png" %}" alt="">
+        {% endif %}
+      </div>
+      <button type="button" class="edit-button" onclick="editProfile()">Edit Profile</button>
+      <div class="input-field">
+        <textarea class="bio-input" id="bio" name="bio" rows="4" placeholder="Enter your bio...">{{ request.user.about }}</textarea>
+      </div>
+      <div class="input-field">
+        <input type="email" id="email" name="email" placeholder="Email" readonly value={{ request.user.email }}>
+      </div>
+      <div class="input-field">
+        <input type="tel" id="phone" name="phone" placeholder="Phone Number" readonly value={{ request.user.phonenumber }}>
+      </div>
+      <div class="input-field">
+        <button type="submit" class="sub">Save Profile</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+    function editProfile() {
+        var fileInput = document.createElement('input');
+        fileInput.type = 'file';
+        fileInput.accept = 'image/*';
+        fileInput.name = 'profile';
+        fileInput.onchange = function() {
+            var file = fileInput.files[0];
+            var reader = new FileReader();
+            reader.onload = function() {
+                var profileImage = document.getElementById('profile-image');
+                profileImage.innerHTML = '';
+                var img = document.createElement('img');
+                img.src = reader.result;
+                img.alt = 'Profile Picture';
+                img.onload = function() {
+                    URL.revokeObjectURL(this.src);
+                }
+                profileImage.appendChild(img);
+            }
+            reader.readAsDataURL(file);
+        }
+        fileInput.click();
+    
+      
+        document.getElementById('profile-form').appendChild(fileInput);
+    }
+    
+</script>
+
+</body>
+</html>

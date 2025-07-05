@@ -1,0 +1,124 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/verify_email.css' %}">
+    <script src="https://kit.fontawesome.com/2f4812b960.js" crossorigin="anonymous"></script>
+    <title>Email verification</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+        }
+        .box {
+            max-width: 400px;
+            margin: 100px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        .input-box {
+            margin-bottom: 20px;
+            position: relative;
+        }
+        .input-box i {
+            position: absolute;
+            top: 50%;
+            left: 15px;
+            transform: translateY(-50%);
+            color: #999;
+        }
+        .input-box input {
+            width: calc(100% - 40px);
+            padding: 10px;
+            padding-left: 40px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .sub {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #000;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .sub:hover {
+            background-color: #333;
+        }
+        .spa {
+            color: #333;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        .alert {
+            margin-bottom: 15px;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .alert-success {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+        }
+        .alert-danger {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+        }
+        .close {
+            position: absolute;
+            top: 20%;
+            right: 10%;
+            transform: translateY(-50%);
+            padding: 0.75rem 1.25rem;
+            background-color: transparent;
+            border: 0;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="box">
+    {% if messages %}
+    <div class="container mt-4 cusmes">
+        {% for message in messages %}
+        <div class="alert {% if message.tags == 'success' %}alert-success{% else %}alert-danger{% endif %} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"  onclick="this.parentElement.style.display='none'">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    
+    <form action="" method="POST">
+        {% csrf_token %}
+        <span class="spa">Enter your email address to verify</span>
+        <div class="input-box">
+            <i class="fa-solid fa-envelope" style="left: 10px;"></i>
+            <input class="em" type="email" placeholder="Email" required name="emailid">
+        </div>
+        <input class="sub" type="submit" value="Send">
+    </form>
+</div>
+
+<script>
+    function ani(){
+        var box1 = document.getElementById('box1');
+        box1.classList.add("form");
+    }
+</script>
+
+</body>
+</html>
